@@ -11,7 +11,9 @@ public class ShowUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        pauseW.SetActive(false);
+        invenW.SetActive(false);
+        optionW.SetActive(false);
     }
 
     // Update is called once per frame
@@ -32,6 +34,9 @@ public class ShowUI : MonoBehaviour
             if (invenW.activeSelf == false&& pauseW.activeSelf == false) InventoryWindow(true);
             else if (invenW.activeSelf == true) InventoryWindow(false);
         }
+
+        if (pauseW.activeSelf == false && optionW.activeSelf == false) GameObject.Find("Main Camera").GetComponent<MouseMove>().isPlay = true;
+        else GameObject.Find("Main Camera").GetComponent<MouseMove>().isPlay = false;
 
     }
 

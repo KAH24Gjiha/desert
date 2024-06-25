@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rigid;
 
     private bool isGrounded;
+    public bool isRun;
 
     public float sesitivity = 500f; //마우스 민감도2
     public float rotationY;
@@ -35,7 +36,10 @@ public class PlayerMove : MonoBehaviour
         transform.position += moveVec.normalized * speed * Time.deltaTime;
 
         Camera.main.transform.position = this.transform.position;
-    }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isRun == false) { speed = 10; isRun = true; this.gameObject.GetComponent<PlayerState>().Run(true); }
+        if (Input.GetKeyUp(KeyCode.LeftShift)) { speed = 5; isRun = false; this.gameObject.GetComponent<PlayerState>().Run(false); }
+        }
     void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && CheckGround())

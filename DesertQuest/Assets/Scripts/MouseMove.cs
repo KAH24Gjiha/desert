@@ -11,13 +11,15 @@ public class MouseMove : MonoBehaviour
 
     public Transform Player;
 
+    public bool isPlay = true;
+
     void Update()
     {
         rotate();
     }
     void rotate()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && isPlay == true)
         {
             float mouseMoveX = Input.GetAxis("Mouse X");
             float mouseMoveY = Input.GetAxis("Mouse Y");
