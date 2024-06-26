@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ItemPick : MonoBehaviour
+{
+    public Item item;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    public void GetItem()
+    {
+        if(item.Amount <= 0)
+            GameObject.Find("InventoryManager").GetComponent<InventorySlot>().AddItem(item);
+        item.Amount++;
+        GameObject.Find("InventoryManager").GetComponent<InventorySlot>().FreshSlot();
+    }
+    public void DelItem()
+    {
+        item.Amount--;
+        GameObject.Find("InventoryManager").GetComponent<InventorySlot>().FreshSlot();
+    }
+}
