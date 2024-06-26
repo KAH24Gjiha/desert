@@ -15,6 +15,7 @@ public class Item : ScriptableObject
     public string Name;
     public int ItemNum; //아이템 고유번호, 이걸로 이미지를 받아올 것
     public Sprite sprite;
+    public GameObject item;
     public int Amount;
     public Type IType;
 

@@ -15,6 +15,7 @@ MonoBehaviour:
   Name: "\uB098\uBB34"
   ItemNum: 1
   sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  item: {fileID: 2732293286569753752, guid: 5d8360d0e6d9027468465119895ce8e9, type: 3}
   Amount: 0
   IType: 2
   fullness: 0

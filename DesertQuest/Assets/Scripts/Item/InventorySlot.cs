@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    public List<Item> InvenList = new List<Item>();
+    public Inventory InventoryObj;
 
     [SerializeField]
     private Transform slotParent;
@@ -16,7 +16,6 @@ public class InventorySlot : MonoBehaviour
     private void Awake()
     {
         //DataManager.Instance.LoadGameData();
-        
         slots = slotParent.GetComponentsInChildren<InvenSlot>();
     }
 #endif
@@ -34,11 +33,11 @@ public class InventorySlot : MonoBehaviour
         {
             slots[i].item = null;
         }
-        for (i = 0; i < InvenList.Count; i++)
+        for (i = 0; i < InventoryObj.InvenList.Count; i++)
         {
-            if (InvenList[i] != null)
+            if (InventoryObj.InvenList[i] != null)
             {
-                slots[i].item = InvenList[i];
+                slots[i].item = InventoryObj.InvenList[i];
                 //Debug.Log("아이템 : " + inven.InvenList[i].ItemName + " " + inven.InvenList[i].count);
             }
         }
@@ -47,17 +46,17 @@ public class InventorySlot : MonoBehaviour
 
     public void AddItem(Item _item)
     {
-        InvenList.Add(_item);
+        InventoryObj.InvenList.Add(_item);
     }
 
     public void DeleteItem()
     {
-        for (int i = 0; i < InvenList.Count; i++)
+        for (int i = 0; i < InventoryObj.InvenList.Count; i++)
         {
-            if (InvenList[i] != null && InvenList[i].Amount <= 0)
+            if (InventoryObj.InvenList[i] != null && InventoryObj.InvenList[i].Amount <= 0)
             {
                 //Debug.Log("지워짐" + DataManager.Instance.gameData.InvenList[i]);
-                InvenList.Remove(InvenList[i]);
+                InventoryObj.InvenList.Remove(InventoryObj.InvenList[i]);
                 
             }
         }

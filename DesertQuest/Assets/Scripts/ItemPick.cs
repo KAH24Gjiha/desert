@@ -5,23 +5,31 @@ using UnityEngine;
 public class ItemPick : MonoBehaviour
 {
     public Item item;
+    public UseItem UseSlots;
+    public InventorySlot InventoryS;
     // Start is called before the first frame update
     void Start()
     {
-        
+        InventoryS = GameObject.Find("InventoryManager").GetComponent<InventorySlot>();
+
     }
 
     // Update is called once per frame
     public void GetItem()
     {
         if(item.Amount <= 0)
-            GameObject.Find("InventoryManager").GetComponent<InventorySlot>().AddItem(item);
+            InventoryS.AddItem(item);
         item.Amount++;
-        GameObject.Find("InventoryManager").GetComponent<InventorySlot>().FreshSlot();
+        InventoryS.FreshSlot();
     }
-    public void DelItem()
+    public void Picked()
     {
-        item.Amount--;
-        GameObject.Find("InventoryManager").GetComponent<InventorySlot>().FreshSlot();
+        item = this.GetComponent<InvenSlot>().item;
+        if (item != null)
+        {
+            UseSlots.item = item;
+            UseSlots.ItemClick();
+        }
     }
+
 }
