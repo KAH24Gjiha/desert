@@ -27,15 +27,15 @@ public class MouseMove : MonoBehaviour
             rotationY += mouseMoveX * sesitivity * Time.deltaTime;
             rotationX += mouseMoveY * sesitivity * Time.deltaTime;
 
-            if (rotationX > 35f)
+            if (rotationX > 75f)
             {
-                rotationX = 35f;
+                rotationX = 75f;
 
             }
 
-            if (rotationX < -30f)
+            if (rotationX < -70f)
             {
-                rotationX = -30f;
+                rotationX = -70f;
 
             }
 

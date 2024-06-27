@@ -4,13 +4,13 @@ using UnityEngine;
 public class DayNightCycle : MonoBehaviour
 {
     public Light sun;  // 씬에서 Directional Light를 할당합니다.
-    public float dayDuration = 10f;  // 하루의 지속 시간(초)
+    public float dayDuration = 30f;  // 하루의 지속 시간(초)
     [SerializeField] public Material daySkybox;  // 낮 Skybox Material
     [SerializeField] public Material nightSkybox;  // 밤 Skybox Material
     public bool isNightTime = false;
     public float transitionSpeed = 1f;  // Skybox 전환 속도
     private float time;
-    private Material currentSkybox; 
+    public Material currentSkybox; 
 
     public GameObject monsterSpawnerObject;
     MonsterSpawner monsterSpawner;
@@ -18,12 +18,14 @@ public class DayNightCycle : MonoBehaviour
     void Start()
     {
         monsterSpawner = monsterSpawnerObject.GetComponent<MonsterSpawner>();
-        currentSkybox = new Material(Shader.Find("Skybox/Procedural"));
+        //currentSkybox = new Material(Shader.Find("Skybox/Procedural"));
         RenderSettings.skybox = currentSkybox;
+        time = 15f;
     }
 
     void Update()
     {
+
         // 시간 업데이트
         time += Time.deltaTime;
         if (time > dayDuration) time = 0;
@@ -36,7 +38,7 @@ public class DayNightCycle : MonoBehaviour
         sun.transform.rotation = Quaternion.Euler(new Vector3(sunAngle - 90f, 170f, 0f));
 
         // 조명의 색상과 강도 변경
-        float intensity;
+        //float intensity;
         Color sunColor;
         if (timeRatio < 0.25f || timeRatio > 0.75f)
         {
@@ -47,8 +49,8 @@ public class DayNightCycle : MonoBehaviour
                 Debug.Log("T");
                 monsterSpawner.StartMonsterSpawnCoroutine(3);
             }
-            intensity = Mathf.Lerp(0f, 1f, Mathf.InverseLerp(0.75f, 1f, timeRatio) + Mathf.InverseLerp(0f, 0.25f, timeRatio));
-            sunColor = Color.Lerp(Color.black, Color.blue, Mathf.InverseLerp(0.75f, 1f, timeRatio) + Mathf.InverseLerp(0f, 0.25f, timeRatio));
+            //intensity = Mathf.Lerp(0f, 1f, Mathf.InverseLerp(0.75f, 1f, timeRatio) + Mathf.InverseLerp(0f, 0.25f, timeRatio));
+            sunColor = Color.Lerp(Color.black, new Color(230, 55, 0), Mathf.InverseLerp(0.75f, 1f, timeRatio) + Mathf.InverseLerp(0f, 0.25f, timeRatio));
         }
         else
         {
@@ -59,11 +61,11 @@ public class DayNightCycle : MonoBehaviour
                 Debug.Log("F");
                 monsterSpawner.StopMonsterSpawnCoroutine();
             }
-            intensity = Mathf.Lerp(0f, 1f, Mathf.InverseLerp(0.25f, 0.5f, timeRatio) + Mathf.InverseLerp(0.5f, 0.75f, timeRatio));
-            sunColor = Color.Lerp(Color.blue, Color.white, Mathf.InverseLerp(0.25f, 0.5f, timeRatio) + Mathf.InverseLerp(0.5f, 0.75f, timeRatio));
+            //intensity = Mathf.Lerp(0f, 1f, Mathf.InverseLerp(0.25f, 0.5f, timeRatio) + Mathf.InverseLerp(0.5f, 0.75f, timeRatio));
+            sunColor = Color.Lerp(Color.red, new Color(230, 55, 0), Mathf.InverseLerp(0.25f, 0.5f, timeRatio) + Mathf.InverseLerp(0.5f, 0.75f, timeRatio));
         }
-        sun.intensity = intensity;
-        sun.color = sunColor;
+        //sun.intensity = intensity;
+        sun.color = new Color(230, 55, 0);
 
         // Skybox 전환
         float lerpFactor;

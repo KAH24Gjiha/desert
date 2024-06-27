@@ -52,7 +52,7 @@ public class MonsterSpawner : MonoBehaviour
 
             GameObject Monster = 
                 Instantiate(MonsterPrefab, 
-                new Vector3(monsterSpawnX, 0, monsterSpawnZ), 
+                new Vector3(monsterSpawnX, 10, monsterSpawnZ), 
                 Quaternion.identity);
 
             MonstersCount--;

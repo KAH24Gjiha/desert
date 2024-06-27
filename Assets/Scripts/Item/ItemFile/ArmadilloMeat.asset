@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa13a81db5c43949bf8dc957dddc4ea, type: 3}
+  m_Name: ArmadilloMeat
+  m_EditorClassIdentifier: 
+  Name: "\uAD6C\uC6B4 \uC544\uB974\uB9C8\uB51C\uB85C\uACE0\uAE30"
+  ItemNum: 7
+  sprite: {fileID: 21300000, guid: 0d5dcfd649d7f404f991fd8f9aaaadaa, type: 3}
+  item: {fileID: 2565419586003704928, guid: dc8501871d53ec2479c823b6c3877f2e, type: 3}
+  Amount: 0
+  IType: 1
+  fullness: 15

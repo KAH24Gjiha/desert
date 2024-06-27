@@ -50,6 +50,6 @@ public class ShowUI : MonoBehaviour
     }
     public void OptionWindow(bool active)
     {
-
+        optionW.SetActive(active);
     }
 }

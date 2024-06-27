@@ -19,7 +19,7 @@ public class MonsterControll : MonoBehaviour
     private Vector3 patrolTarget;
     private float patrolTimer;
 
-    private NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
 
     void Start()
     {
@@ -28,7 +28,7 @@ public class MonsterControll : MonoBehaviour
 
         if (player == null)
         {
-            player = GameObject.FindWithTag("Player").transform;
+            player = GameObject.Find("Player").transform;
         }
 
         SetNewPatrolTarget();
