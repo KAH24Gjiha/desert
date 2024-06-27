@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1101861523}
-  m_IndirectSpecularColor: {r: 0.364589, g: 0.19885784, b: 0.15692034, a: 1}
+  m_IndirectSpecularColor: {r: 0.08005004, g: 0.089658916, b: 0.1706815, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -611,7 +611,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1422446951
 MeshCollider:
   m_ObjectHideFlags: 0
