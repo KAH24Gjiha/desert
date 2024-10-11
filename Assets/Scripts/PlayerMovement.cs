@@ -20,26 +20,31 @@ public class PlayerMovement : MonoBehaviour
 
     private Single m_stamina;
     private bool isGrounded;
+    public Boolean isRunning;
 
 
     private Animator m_animator;
     private Rigidbody m_characterController;
     private PlayerCamera m_playerCamera;
+    private PlayerState playerState;
 
     private void Awake()
     {
         m_playerCamera = GetComponent<PlayerCamera>();
         m_animator = GetComponent<Animator>();
         m_characterController = GetComponent<Rigidbody>();
+        playerState = GetComponent<PlayerState>();
     }
     private void Update()
     {
+
         Single horiz = Input.GetAxisRaw("Horizontal");
         Single vert = Input.GetAxisRaw("Vertical");
         Jump();
 
-        Boolean isRunning
-            = Input.GetKey(KeyCode.LeftShift);
+        if(playerState.stamina >= 0)
+            isRunning = Input.GetKey(KeyCode.LeftShift);
+
 
         Vector3 input = new Vector3(horiz, 0, vert);
 
@@ -98,11 +103,13 @@ public class PlayerMovement : MonoBehaviour
             = targetDirection * m_currentSpeed * Time.deltaTime * 10;
         if (isRunning)
         {
-            m_stamina -= 0.3f;
+            playerState.stamina -= 0.3f;
             m_characterController.velocity *= 1.5f;
+            playerState.BarOn();
         }
+        else if(!isRunning && playerState.isSliderOn == true) playerState.Baroff();
 
-         Single dampedRotation = Mathf.SmoothDampAngle(
+        Single dampedRotation = Mathf.SmoothDampAngle(
             transform.localEulerAngles.y,
             targetRotation,
             ref m_rotationVelocity,
