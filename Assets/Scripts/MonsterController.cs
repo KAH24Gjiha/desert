@@ -5,11 +5,12 @@ using System;
 
 public class MonsterController : MonoBehaviour
 {
-    private Single m_currentSpeed;
 
     [SerializeField] private Single m_walkSpeed;
     [SerializeField] private Single m_runSpeed;
     [SerializeField] private Single m_accel;
+
+    private Single m_currentSpeed;
 
     private bool isFinding;
     Vector3 input;
@@ -20,9 +21,12 @@ public class MonsterController : MonoBehaviour
 
     public Transform Player;
     public PlayerState playerState;
+
+    public float hp;
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         m_animator = GetComponent<Animator>();
         m_characterController = GetComponent<Rigidbody>();
         Player = GameObject.Find("Player").transform;
@@ -46,7 +50,7 @@ public class MonsterController : MonoBehaviour
         {
             input = this.transform.position - Player.position;
         }
-        
+        Debug.Log(input);
 
         m_animator.SetFloat("speed", m_currentSpeed);
 
@@ -94,8 +98,6 @@ public class MonsterController : MonoBehaviour
         m_characterController.velocity
             = targetDirection * m_currentSpeed * Time.deltaTime * 10;
         if (isFinding) m_characterController.velocity *= 1.5f;
-
-
     }
     private void Atk()
     {

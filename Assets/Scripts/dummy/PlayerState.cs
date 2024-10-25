@@ -49,6 +49,7 @@ public class PlayerState : MonoBehaviour
     
     public void BarOn()
     {
+        StaminaBar.value = stamina;
         StaminaBar.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
     }
     public void Baroff()
@@ -57,6 +58,7 @@ public class PlayerState : MonoBehaviour
     }
     IEnumerator BarOff()
     {
+        
         isSliderOn = false;
         //yield return new WaitForSeconds(3f);
         if (playerMovement.isRunning == true) yield break;
