@@ -20,26 +20,33 @@ public class PlayerMovement : MonoBehaviour
 
     private Single m_stamina;
     private bool isGrounded;
+    public Boolean isRunning;
 
 
     private Animator m_animator;
     private Rigidbody m_characterController;
     private PlayerCamera m_playerCamera;
+    private PlayerState playerState;
 
     private void Awake()
     {
+        Application.targetFrameRate = 60;
+
         m_playerCamera = GetComponent<PlayerCamera>();
         m_animator = GetComponent<Animator>();
         m_characterController = GetComponent<Rigidbody>();
+        playerState = GetComponent<PlayerState>();
     }
-    private void Update()
+    private void FixedUpdate()
     {
+
         Single horiz = Input.GetAxisRaw("Horizontal");
         Single vert = Input.GetAxisRaw("Vertical");
         Jump();
 
-        Boolean isRunning
-            = Input.GetKey(KeyCode.LeftShift);
+        if(playerState.stamina >= 0)
+            isRunning = Input.GetKey(KeyCode.LeftShift);
+
 
         Vector3 input = new Vector3(horiz, 0, vert);
 
@@ -95,14 +102,16 @@ public class PlayerMovement : MonoBehaviour
             = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
 
         m_characterController.velocity
-            = targetDirection * m_currentSpeed * Time.deltaTime * 10;
+            = targetDirection * m_currentSpeed * Time.deltaTime * 100;
         if (isRunning)
         {
-            m_stamina -= 0.3f;
+            playerState.stamina -= 0.3f;
             m_characterController.velocity *= 1.5f;
+            playerState.BarOn();
         }
+        else if(!isRunning && playerState.isSliderOn == true) playerState.Baroff();
 
-         Single dampedRotation = Mathf.SmoothDampAngle(
+        Single dampedRotation = Mathf.SmoothDampAngle(
             transform.localEulerAngles.y,
             targetRotation,
             ref m_rotationVelocity,
@@ -116,25 +125,18 @@ public class PlayerMovement : MonoBehaviour
     }
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && CheckGround())
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            m_characterController.AddForce(Vector3.up * 5f, ForceMode.Impulse);
-            //m_animator.SetBool("jump", !isGrounded);
+            m_characterController.AddForce(Vector3.up * 10f, ForceMode.Impulse);
+            m_animator.SetBool("jump", true);
+  
         }
     }
 
-    bool CheckGround()
+   
+    private void OnCollisionEnter(Collision collision)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 1.1f)) //hit 뒤에 붙는건 제 컴퓨터 이슈로 값을 다른 컴퓨터에서 조정해야함... 
-        {
-            if (hit.transform.tag != null)
-            {
-                isGrounded = true;
-                return isGrounded;
-            }
-        }
-        isGrounded = false;
-        return isGrounded;
+        isGrounded = true;
+        m_animator.SetBool("jump", false);
     }
 }

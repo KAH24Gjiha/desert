@@ -7,11 +7,16 @@ public class MonsterControll : MonoBehaviour
     public Transform player;
     public float chaseRange = 10.0f;
     public float attackRange = 2.0f;
-    public float moveSpeed = 3.5f;
     public int attackDamage = 10;
     public float attackCooldown = 1.5f;
     public float patrolRange = 20.0f;  // Å½»ö ¹üÀ§
     public float patrolWaitTime = 3.0f;  // Å½»ö ´ë±â ½Ã°£
+
+    private float moveSpeed = 3f;
+    private float walkSpeed = 0.8f;
+    private float runSpeed = 3f;
+    private float accel = 3f;
+    private float maxSpeed;
 
     private bool isChasing = false;
     private bool isAttacking = false;
@@ -20,10 +25,12 @@ public class MonsterControll : MonoBehaviour
     private float patrolTimer;
 
     public NavMeshAgent navMeshAgent;
+    private Animator animator;
 
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
         navMeshAgent.speed = moveSpeed;
 
         if (player == null)
@@ -36,6 +43,7 @@ public class MonsterControll : MonoBehaviour
 
     void Update()
     {
+        animator.SetFloat("speed", moveSpeed);
         distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
         if (distanceToPlayer <= chaseRange && !isAttacking)
@@ -62,6 +70,10 @@ public class MonsterControll : MonoBehaviour
         {
             Patrol();
         }
+        
+        moveSpeed = isChasing ? runSpeed : walkSpeed;
+
+        
     }
 
     void Patrol()

@@ -15,6 +15,7 @@ public class PlayerState : MonoBehaviour
     public Slider StaminaBar;
 
     bool ishunger = false;
+    public bool isSliderOn = false;
 
     public GameObject DeadScene;
 
@@ -25,15 +26,40 @@ public class PlayerState : MonoBehaviour
     {
         StaminaBar.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
         StaminaBar.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-        playerMovement = this.GetComponent<PlayerMovement>();
 
         StartCoroutine(healStatus());
     }
 
+    public void Damage()
+    {
+        HP -= 15;
+        HPImg.color = new Color(1, 0, 0, HPImg.color.a + 0.05f);
+        if (HP <= 0) Dead();
+    }
+    public void Eat(int fullness)
+    {
+        
+        if (Fullness < 30) ishunger = true;
+
+         Fullness += fullness;
+        if (Fullness > 100) Fullness = 100;
+        if(ishunger == true && Fullness >= 30) { StartCoroutine(healStatus()); ishunger = false; }
+        
+    }
     
-    
+    public void BarOn()
+    {
+        StaminaBar.value = stamina;
+        StaminaBar.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+    }
+    public void Baroff()
+    {
+        StartCoroutine(BarOff());
+    }
     IEnumerator BarOff()
     {
+        
+        isSliderOn = false;
         //yield return new WaitForSeconds(3f);
         if (playerMovement.isRunning == true) yield break;
 
@@ -43,7 +69,7 @@ public class PlayerState : MonoBehaviour
             && playerMovement.isRunning == false)
         {
             if (playerMovement.isRunning == true) break;
-            
+
             yield return new WaitForSeconds(0.1f);
 
             StaminaBar.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, a);
@@ -53,6 +79,7 @@ public class PlayerState : MonoBehaviour
         StaminaBar.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
         StaminaBar.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
         yield break;
+        
     }
     public IEnumerator healStatus()
     {
@@ -77,5 +104,8 @@ public class PlayerState : MonoBehaviour
     {
 
     }
+    public void Save()
+    {
 
+    }
 }
