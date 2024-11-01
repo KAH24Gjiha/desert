@@ -21,7 +21,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         _waitTime = new WaitForSecondsRealtime(_spawnDelay);
         rand = new System.Random();
-        StartMonsterSpawnCoroutine(setDefaultMonsterNum);
+        //StartMonsterSpawnCoroutine(setDefaultMonsterNum);
     }
     
     public void StartMonsterSpawnCoroutine(int monstersCount)

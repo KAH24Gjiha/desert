@@ -9,11 +9,15 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] public Material nightSkybox;  // 밤 Skybox Material
     public bool isNightTime = false;
     public float transitionSpeed = 1f;  // Skybox 전환 속도
-    private float time;
+    public float time;
+    public float timeRatio;
     public Material currentSkybox; 
 
     public GameObject monsterSpawnerObject;
     MonsterSpawner monsterSpawner;
+
+    [SerializeField] private bool isPlayingStory;
+    public GameObject storyManagerObj;
 
     void Start()
     {
@@ -25,13 +29,15 @@ public class DayNightCycle : MonoBehaviour
 
     void Update()
     {
-
-        // 시간 업데이트
-        time += Time.deltaTime;
+        while (!isPlayingStory)
+        {
+            // 시간 업데이트
+            time += Time.deltaTime;
+        }
         if (time > dayDuration) time = 0;
 
         // 현재 시간 비율 계산 (0에서 1 사이)
-        float timeRatio = time / dayDuration;
+        timeRatio = time / dayDuration;
 
         // 태양의 각도 설정 (360도 회전)
         float sunAngle = timeRatio * 360f;
@@ -47,7 +53,8 @@ public class DayNightCycle : MonoBehaviour
             {
                 isNightTime = true;
                 Debug.Log("T");
-                monsterSpawner.StartMonsterSpawnCoroutine(3);
+                isPlayingStory = storyManagerObj.GetComponent<StoryManage>().isPlayingStory;
+                if (!isPlayingStory) monsterSpawner.StartMonsterSpawnCoroutine(3);
             }
             //intensity = Mathf.Lerp(0f, 1f, Mathf.InverseLerp(0.75f, 1f, timeRatio) + Mathf.InverseLerp(0f, 0.25f, timeRatio));
             sunColor = Color.Lerp(Color.black, new Color(230, 55, 0), Mathf.InverseLerp(0.75f, 1f, timeRatio) + Mathf.InverseLerp(0f, 0.25f, timeRatio));
