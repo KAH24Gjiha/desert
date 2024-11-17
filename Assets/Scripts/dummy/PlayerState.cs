@@ -8,19 +8,24 @@ public class PlayerState : MonoBehaviour
     public float HP = 100;
     public float Fullness = 100;
     public float stamina = 50;
-    public int Attacked = 20;
+    public int AtkPower = 20;
+
+    public float radius = 0.5f;
+    bool ishunger = false;
+    public bool isSliderOn = false;
 
     public Image HPImg;
     public Image FullImag;
     public Slider StaminaBar;
 
-    bool ishunger = false;
-    public bool isSliderOn = false;
-
     public GameObject DeadScene;
 
     private PlayerMovement playerMovement;
 
+    public LayerMask layer;
+    private Collider[] colliders;
+
+    
 
     void Start()
     {
@@ -29,7 +34,19 @@ public class PlayerState : MonoBehaviour
 
         StartCoroutine(healStatus());
     }
+    void Update()
+    {
+        colliders = Physics.OverlapSphere(transform.position, radius, layer);
+        if (Input.GetMouseButtonDown(0)) { Attacked(); }
+    }
 
+    public void Attacked()
+    {
+        foreach(var g in colliders)
+        {
+            g.GetComponent<MonsterState>().Damaged(AtkPower);
+        }
+    }
     public void Damage()
     {
         HP -= 15;

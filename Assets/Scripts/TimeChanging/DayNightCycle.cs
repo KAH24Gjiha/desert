@@ -14,14 +14,13 @@ public class DayNightCycle : MonoBehaviour
     public Material currentSkybox; 
 
     public GameObject monsterSpawnerObject;
-    MonsterSpawner monsterSpawner;
 
     [SerializeField] private bool isPlayingStory;
     public GameObject storyManagerObj;
 
     void Start()
     {
-        monsterSpawner = monsterSpawnerObject.GetComponent<MonsterSpawner>();
+        //monsterSpawner = monsterSpawnerObject.GetComponent<MonsterSpawner>();
         //currentSkybox = new Material(Shader.Find("Skybox/Procedural"));
         RenderSettings.skybox = currentSkybox;
         time = 15f;
@@ -54,7 +53,7 @@ public class DayNightCycle : MonoBehaviour
                 isNightTime = true;
                 Debug.Log("T");
                 isPlayingStory = storyManagerObj.GetComponent<StoryManage>().isPlayingStory;
-                if (!isPlayingStory) monsterSpawner.StartMonsterSpawnCoroutine(3);
+                //if (!isPlayingStory) monsterSpawner.StartMonsterSpawnCoroutine(3);
             }
             //intensity = Mathf.Lerp(0f, 1f, Mathf.InverseLerp(0.75f, 1f, timeRatio) + Mathf.InverseLerp(0f, 0.25f, timeRatio));
             sunColor = Color.Lerp(Color.black, new Color(230, 55, 0), Mathf.InverseLerp(0.75f, 1f, timeRatio) + Mathf.InverseLerp(0f, 0.25f, timeRatio));
@@ -66,7 +65,7 @@ public class DayNightCycle : MonoBehaviour
             {
                 isNightTime = false;
                 Debug.Log("F");
-                monsterSpawner.StopMonsterSpawnCoroutine();
+                //monsterSpawner.StopMonsterSpawnCoroutine();
             }
             //intensity = Mathf.Lerp(0f, 1f, Mathf.InverseLerp(0.25f, 0.5f, timeRatio) + Mathf.InverseLerp(0.5f, 0.75f, timeRatio));
             sunColor = Color.Lerp(Color.red, new Color(230, 55, 0), Mathf.InverseLerp(0.25f, 0.5f, timeRatio) + Mathf.InverseLerp(0.5f, 0.75f, timeRatio));
