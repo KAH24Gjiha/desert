@@ -5,12 +5,13 @@ using UnityEngine.AI;
 public class MonsterControll : MonoBehaviour
 {
     public Transform player;
+    public GameObject dropItem;
     public float chaseRange = 10.0f;
-    public float attackRange = 2.0f;
-    public int attackDamage = 10;
-    public float attackCooldown = 1.5f;
-    public float patrolRange = 20.0f;  // Å½»ö ¹üÀ§
-    public float patrolWaitTime = 3.0f;  // Å½»ö ´ë±â ½Ã°£
+    private float attackRange = 2.0f;
+    private int attackDamage = 10;
+    private float attackCooldown = 1.5f;
+    private float patrolRange = 20.0f;  // Å½»ö ¹üÀ§
+    private float patrolWaitTime = 3.0f;  // Å½»ö ´ë±â ½Ã°£
 
     private float moveSpeed = 3f;
     private float walkSpeed = 0.8f;

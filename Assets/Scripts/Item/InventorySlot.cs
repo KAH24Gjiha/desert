@@ -23,43 +23,19 @@ public class InventorySlot : MonoBehaviour
         StartCoroutine("addFresh");
     }
 
-
     public void FreshSlot()
     {
-         DeleteItem();
         int i = 0;
-        for (; i < slots.Length && i < slots.Length; i++)
+
+        for (i = 0; i < InventoryObj.InvenList.Length; i++)
         {
-            slots[i].item = null;
-        }
-        for (i = 0; i < InventoryObj.InvenList.Count; i++)
-        {
-            if (InventoryObj.InvenList[i] != null)
+            if (InventoryObj.InvenList[i].Amount > 0)
             {
                 slots[i].item = InventoryObj.InvenList[i];
                 //Debug.Log("아이템 : " + inven.InvenList[i].ItemName + " " + inven.InvenList[i].count);
             }
         }
         //slots[i + 1].item = DataManager.Instance.gameData.InvenList[i + 1];
-    }
-
-    public void AddItem(Item _item)
-    {
-        InventoryObj.InvenList.Add(_item);
-    }
-
-    public void DeleteItem()
-    {
-        for (int i = 0; i < InventoryObj.InvenList.Count; i++)
-        {
-            if (InventoryObj.InvenList[i] != null && InventoryObj.InvenList[i].Amount <= 0)
-            {
-                //Debug.Log("지워짐" + DataManager.Instance.gameData.InvenList[i]);
-                InventoryObj.InvenList.Remove(InventoryObj.InvenList[i]);
-                
-            }
-        }
-        
     }
     IEnumerator addFresh()
     {

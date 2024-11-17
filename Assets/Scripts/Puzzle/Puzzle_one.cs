@@ -7,9 +7,8 @@ public class Puzzle_one : MonoBehaviour
     public GameObject[] Light;
     public bool[] onLight;
 
+    public GameObject gate;
 
-    public bool isSuccess;
-    
     public void IsFInished()
     {
         int finish = 0;
@@ -19,7 +18,11 @@ public class Puzzle_one : MonoBehaviour
             else finish++;
         }
 
-        if (finish == onLight.Length) isSuccess = true;
+        if (finish == onLight.Length)
+        {
+            Puzzle.Instance.isClear[0] = true;
+            gate.SetActive(true);
+        }
     }
     public void LightOn()
     {

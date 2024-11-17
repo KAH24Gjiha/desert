@@ -7,18 +7,14 @@ public class Puzzle_two : MonoBehaviour
     public int deathCount = 0;
     public int condition = 15;
 
-    public bool isSuccess;
+    public GameObject gate;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
     public void IsFinished()
     {
         if(deathCount == condition)
         {
-            isSuccess = true;
+            Puzzle.Instance.isClear[1] = true;
+            gate.SetActive(true);
         }
     }
 }
